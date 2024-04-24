@@ -2,12 +2,14 @@ var express = require('express');
 var router = express.Router();
 const fetch = require('node-fetch');
 
-
+const apiKey = process.env.OWN_API_KEY ;
 router.get('/movies', (req, res) => {
     
+console.log(apiKey)
+console.log('manuuuu')
+console.log(process.env)
 
-    console.log('manuuuu')
-    const apiKey = process.env.OWN_API_KEY ;
+    
     const url = 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc';
     const options = {
       method: 'GET',
@@ -18,7 +20,12 @@ router.get('/movies', (req, res) => {
 
     fetch(url, options)
       .then(res => res.json())
-      .then(dataMovies => res.json( {movies : dataMovies.results}))
+      .then(dataMovies =>  {
+         console.log(dataMovies)
+
+          res.json( {movies : dataMovies.results})
+      })
+        
     //   .catch(err => console.error('error:' + err));
 
 
